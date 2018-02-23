@@ -1,5 +1,10 @@
 module.exports = function solveSudoku(matrix) {
+
   var item;
+  var srow_min;
+  var srow_max;
+  var scol_min;
+  var scol_max;
   var table = [
     [[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9]],
     [[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9],[1, 2, 3, 4, 5, 6, 7, 8, 9]],
@@ -31,22 +36,44 @@ module.exports = function solveSudoku(matrix) {
      for (var col = 0; col < 9; col++) {
            if (table[row][col].length !== undefined) {
            item = table[row][col]
-           for(var i=0; i<9; i++) {
+           //check small squares here
+
+           
+           var smsquare = [];
+           if(row < 2) {srow_min = 0; srow_max = 2 }
+           if(2<row && row < 6) {srow_min = 3; srow_max = 5 }
+           if(5<row) {srow_min = 6; srow_max = 8 }
+           if(col < 2) {scol_min = 0; scol_max = 2 }
+           if(2<col && col < 6) {scol_min = 3; scol_max = 5 }
+           if(5<col) {scol_min = 6; scol_max = 8 }
+
+            for (var sr = srow_min; sr <= srow_max; sr++) {
+               for (var sc = scol_min; sc <= scol_max; sc++) {
+              smsquare.push(table[sr][sc])
+            }
+          }
+          console.log(smsquare);
+        }
+           //
+           /*
+           for(var i=0; i<=item.length+1; i++) {
              if (item.length >1) {
            item = item.filter(function (x) {return x != table[row][i]})
            item = item.filter(function (x) {return x != table[i][col]})
            }
-           console.log(item);
+           //console.log(item);
            table[row][col] = item[0]; 
           }
         }
-         // console.log(item, "test", row,col);
-          
+         
+        // console.log(item, "test", row,col);
+           */ 
 
         }
  
      }
-     console.log(table);
+     //console.log(table);
+   
      return table
 
 
